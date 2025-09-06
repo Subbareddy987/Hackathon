@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Adventure: Education & Sports Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #10b981;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --sports: #ef4444;
+            --education: #8b5cf6;
+            --dark: #1f2937;
+            --light: #f0fdf4;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            color: #1f2937;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        /* Header and Navigation */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            z-index: 10;
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(16, 185, 129, 0.98);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            padding: 2rem;
+        }
+
+        .nav.active {
+            display: flex;
+        }
+
+        .nav-item {
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .nav-item.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user {
+            display: none;
+        }
+        
+        .user.active {
+            display: flex;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .content-area {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: none;
+            width: 100%;
+        }
+        
+        .sidebar.active {
+            display: block;
+        }
+
+        /* Screen Management */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards and UI Elements */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+            min-height: 44px; /* Minimum touch target size */
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-sports {
+            background: linear-gradient(135deg, var(--sports) 0%, #dc2626 100%);
+        }
+
+        .btn-education {
+            background: linear-gradient(135deg, var(--education) 0%, #7c3aed 100%);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #2563eb 100%);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, #d97706 100%);
+        }
+
+        /* Grid Systems */
+        .subject-grid, .sports-grid, .challenge-grid, .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .subject-card, .sport-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .subject-card:hover, .sport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-icon, .sport-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Quiz and Game Elements */
+        .game-container {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .countdown {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 1.5rem 0;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .quiz-option {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #e5e7eb;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quiz-option:hover {
+            background: #f0fdf4;
+            border-color: var(--primary);
+        }
+
+        .quiz-option.correct {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        .quiz-option.incorrect {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        /* Leaderboard and Lists */
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            background: #f8fafc;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto;
+        }
+
+        .avatar.female {
+            background: #ec4899;
+        }
+
+        /* Event Items */
+        .event-list {
+            margin-top: 1.5rem;
+        }
+
+        .event-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            background: #f8fafc;
+            align-items: center;
+        }
+
+        .event-date {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Profile Elements */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+            border-radius: 5px;
+        }
+
+        /* Tabs */
+        .tab-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab {
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            background: #e5e7eb;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Login Form */
+        .login-card {
+            width: 100%;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-card input, .login-card select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .login-card button {
+            width: 100%;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        /* Badges and Notifications */
+        .notification-badge, .education-badge {
+            background: var(--sports);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+
+        .education-badge {
+            background: var(--education);
+        }
+
+        .captain-badge {
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .points-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Team Display */
+        .team-display {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .team {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 640px) {
+            .app-container {
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+            }
+            
+            .subject-grid, .sports-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quiz-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-display {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .nav {
+                display: flex;
+                position: static;
+                background: transparent;
+                flex-direction: row;
+                gap: 0.5rem;
+                padding: 0;
+            }
+            
+            .nav-item {
+                width: auto;
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+                margin: 0;
+            }
+            
+            .close-menu {
+                display: none;
+            }
+            
+            .main-content {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+            
+            .content-area {
+                width: auto;
+                flex-grow: 1;
+                margin-right: 0;
+                margin-bottom: 0;
+            }
+            
+            .sidebar {
+                display: block;
+                width: 300px;
+                flex-shrink: 0;
+            }
+            
+            .subject-grid, .sports-grid, .challenge-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .app-container {
+                max-width: 1200px;
+                margin: 1rem auto;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                min-height: 90vh;
+            }
+            
+            .subject-grid, .sports-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .challenge-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .subject-grid, .sports-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Eco-Adventure</span>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav" id="main-nav">
+                <button class="close-menu" id="close-menu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="nav-item active" onclick="showScreen('dashboard')">Dashboard</div>
+                <div class="nav-item" onclick="showScreen('education')">Education</div>
+                <div class="nav-item" onclick="showScreen('sports')">Sports</div>
+                <div class="nav-item" onclick="showScreen('challenges')">Challenges</div>
+                <div class="nav-item" onclick="showScreen('events')">Events</div>
+            </div>
+            
+            <div class="user" id="user-profile">
+                <div class="avatar" id="user-avatar">?</div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div id="login-register" class="screen active">
+                <div class="login-card">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-6">Welcome to Eco-Adventure!</h1>
+                    <p class="text-gray-600 mb-6">Please create your account to get started.</p>
+                    <form id="registration-form" onsubmit="registerUser(event)">
+                        <input type="text" id="user-name-input" placeholder="Full Name" required>
+                        <input type="text" id="school-name-input" placeholder="School Name" required>
+                        <select id="gender-select" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <select id="class-select" required>
+                            <option value="" disabled selected>Select Your Class</option>
+                            <option value="primary">Primary (Grades 3-5)</option>
+                            <option value="higher">Higher Education</option>
+                            <option value="jee">JEE Preparation</option>
+                        </select>
+                        <button type="submit" class="btn">Start Your Adventure</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="app-container" style="display: none;">
+                <div class="content-area">
+                    <div id="dashboard" class="screen">
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Welcome, <span id="dashboard-username"></span>!</h1>
+                        
+                        <div class="school-of-year">
+                            <div class="trophy-icon">🏆</div>
+                            <h2 class="text-xl md:text-2xl font-bold text-amber-800 mb-2">School of the Year 2023</h2>
+                            <p class="text-amber-700">Green Valley Academy</p>
+                            <p class="text-sm text-amber-600">Top performer in education and sports</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="card text-center">
+                                <div class="text-3xl text-blue-600 mb-2">📚</div>
+                                <h3 class="font-bold text-gray-800">Education Rank</h3>
+                                <p class="text-2xl font-bold">#2</p>
+                            </div>
+                            <div class="card text-center">
+                                <div class="text-3xl text-red-600 mb-2">⚽</div>
+                                <h3 class="font-bold text-gray-800">Sports Rank</h3>
+                                <p class="text-2xl font-bold">#3</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-grid">
+                            <div class="card">
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Your Progress</h2>
+                                <div class="flex justify-between mb-2">
+                                    <span>Level 7 Explorer</span>
+                                    <span class="points-display">650/800 points</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 81%"></div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span>Education Points</span>
+                                            <span class="font-bold" id="education-points-display">420</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 84%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span>Sports Points</span>
+                                            <span class="font-bold" id="sports-points-display">230</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 76%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="daily-challenge card">
+                                <h2 class="text-xl font-bold text-gray-800 mb-2">Daily Challenge</h2>
+                                <p class="text-gray-700 mb-4">Complete today's challenge to earn bonus points!</p>
+                                <button class="btn btn-accent w-full">Start Daily Challenge</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="education" class="screen">
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Education Hub</h1>
+                        
+                        <div class="tab-container">
+                            <div class="tab active" onclick="switchTab('primary-tab')">Primary (3-5)</div>
+                            <div class="tab" onclick="switchTab('higher-tab')">Higher Education</div>
+                            <div class="tab" onclick="switchTab('jee-tab')">JEE Preparation</div>
+                            <div class="tab" onclick="switchTab('eco-tab')">Environment</div>
+                        </div>
+                        
+                        <div id="primary-tab" class="tab-content active">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Primary Education (Grades 3-5)</h2>
+                            
+                            <div class="game-container">
+                                <p class="text-gray-700 mb-2">Question 5 of 10:</p>
+                                <p class="text-xl font-bold mb-4">Which planet is known as the Red Planet?</p>
+                                
+                                <div class="quiz-options">
+                                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Venus</div>
+                                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">Mars</div>
+                                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Jupiter</div>
+                                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Saturn</div>
+                                </div>
+                                
+                                <div class="countdown">00:25</div>
+                            </div>
+                            
+                            <div class="subject-grid">
+                                <div class="subject-card">
+                                    <div class="subject-icon">🔢</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Math Quiz</h3>
+                                    <p class="text-gray-600">Fun with numbers</p>
+                                    <button class="btn btn-education mt-4">Start Quiz</button>
+                                </div>
+                                
+                                <div class="subject-card">
+                                    <div class="subject-icon">🔬</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Science Quiz</h3>
+                                    <p class="text-gray-600">Discover the world</p>
+                                    <button class="btn btn-education mt-4">Start Quiz</button>
+                                </div>
+                                
+                                <div class="subject-card">
+                                    <div class="subject-icon">🌎</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Geography Quiz</h3>
+                                    <p class="text-gray-600">Explore our planet</p>
+                                    <button class="btn btn-education mt-4">Start Quiz</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="higher-tab" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Higher Education</h2>
+                            
+                            <div class="card">
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Assignment Submission</h3>
+                                <p class="text-gray-700 mb-4">Upload your answers and get feedback</p>
+                                
+                                <div class="upload-area">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                                    <p class="text-gray-600">Drag & drop your file here or click to browse</p>
+                                    <p class="text-sm text-gray-500 mt-2">Supported formats: PDF, DOC, DOCX, JPG, PNG</p>
+                                </div>
+                                
+                                <div class="flex justify-between items-center mt-4">
+                                    <div>
+                                        <h3 class="font-bold text-gray-800">Need solution guidance?</h3>
+                                        <p class="text-gray-600">Get step-by-step solutions for 5 points</p>
+                                    </div>
+                                    <button class="btn btn-education" onclick="buySolution()">
+                                        Get Solution <span class="points-cost">5 points</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="subject-grid">
+                                <div class="subject-card">
+                                    <div class="subject-icon">∫</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Calculus</h3>
+                                    <p class="text-gray-600">Advanced mathematics</p>
+                                    <button class="btn btn-education mt-4">View Assignments</button>
+                                </div>
+                                
+                                <div class="subject-card">
+                                    <div class="subject-icon">⚛</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Physics</h3>
+                                    <p class="text-gray-600">Laws of the universe</p>
+                                    <button class="btn btn-education mt-4">View Assignments</button>
+                                </div>
+                                
+                                <div class="subject-card">
+                                    <div class="subject-icon">🧪</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Chemistry</h3>
+                                    <p class="text-gray-600">Elements and reactions</p>
+                                    <button class="btn btn-education mt-4">Study Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="jee-tab" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">JEE Preparation</h2>
+                            
+                            <div class="card">
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Weekly JEE Challenge</h3>
+                                <p class="text-gray-700 mb-4">Test your knowledge with our specialized JEE preparation system</p>
+                                
+                                <div class="game-container">
+                                    <p class="text-gray-700 mb-2">JEE Advanced Question:</p>
+                                    <p class="text-xl font-bold mb-4">A particle moves in a straight line with velocity v(t) = t² - 4t + 3. What is the total distance traveled between t=0 and t=4?</p>
+                                    
+                                    <div class="quiz-options">
+                                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">4 units</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">6 units</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">8 units</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">10 units</div>
+                                    </div>
+                                    
+                                    <div class="countdown">02:00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="subject-grid">
+                                <div class="subject-card">
+                                    <div class="subject-icon">∫</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Mathematics</h3>
+                                    <p class="text-gray-600">300+ practice problems</p>
+                                    <button class="btn btn-education mt-4">Practice Now</button>
+                                </div>
+                                
+                                <div class="subject-card">
+                                    <div class="subject-icon">⚛</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Physics</h3>
+                                    <p class="text-gray-600">Concept videos and problems</p>
+                                    <button class="btn btn-education mt-4">Study Now</button>
+                                </div>
+                                
+                                <div class="subject-card">
+                                    <div class="subject-icon">🧪</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Chemistry</h3>
+                                    <p class="text-gray-600">Reactions and mechanisms</p>
+                                    <button class="btn btn-education mt-4">Study Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="eco-tab" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Environmental Quizzes</h2>
+                            <p class="text-gray-600 mb-4">Learn about climate, conservation, and sustainability through fun quizzes!</p>
+                            
+                            <div class="subject-grid">
+                                <div class="subject-card">
+                                    <div class="subject-icon">🌍</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Climate Change Quiz</h3>
+                                    <p class="text-gray-600">Test your knowledge on global warming and its causes.</p>
+                                    <button class="btn btn-education mt-4">Start Quiz</button>
+                                </div>
+                                
+                                <div class="subject-card">
+                                    <div class="subject-icon">♻️</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Waste & Recycling Quiz</h3>
+                                    <p class="text-gray-600">How well do you know your recyclables?</p>
+                                    <button class="btn btn-education mt-4">Start Quiz</button>
+                                </div>
+                                
+                                <div class="subject-card">
+                                    <div class="subject-icon">🌲</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Biodiversity Quiz</h3>
+                                    <p class="text-gray-600">Explore the world of plants and animals.</p>
+                                    <button class="btn btn-education mt-4">Start Quiz</button>
+                                </div>
+                            </div>
+                            
+                            <div class="card mt-6">
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Featured Question</h2>
+                                <div class="game-container">
+                                    <p class="text-gray-700 mb-2">Environmental Challenge Question:</p>
+                                    <p class="text-xl font-bold mb-4">Which gas is the primary cause of the greenhouse effect?</p>
+                                    
+                                    <div class="quiz-options">
+                                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Oxygen</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">Carbon Dioxide</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Nitrogen</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Helium</div>
+                                    </div>
+                                    <div class="countdown">00:45</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="sports" class="screen">
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Sports Management</h1>
+                        
+                        <div class="tab-container">
+                            <div class="tab active" onclick="switchSportsTab('sports-tab')">Sports Activities</div>
+                            <div class="tab" onclick="switchSportsTab('team-tab')">Team Management</div>
+                            <div class="tab" onclick="switchSportsTab('zonal-tab')">Zonal Competitions</div>
+                        </div>
+                        
+                        <div id="sports-tab" class="tab-content active">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Sports Activities</h2>
+                            
+                            <div class="sports-grid">
+                                <div class="sport-card">
+                                    <div class="sport-icon">🏏</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Cricket</h3>
+                                    <p class="text-gray-600">Join the tournament</p>
+                                    <p class="text-sm text-gray-500 mt-2">Min. 80 points required</p>
+                                    <button class="btn btn-sports mt-4">Join Cricket</button>
+                                </div>
+                                
+                                <div class="sport-card">
+                                    <div class="sport-icon">🏐</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Volleyball</h3>
+                                    <p class="text-gray-600">Team competition</p>
+                                    <p class="text-sm text-gray-500 mt-2">Min. 70 points required</p>
+                                    <button class="btn btn-sports mt-4">Join Volleyball</button>
+                                </div>
+                                
+                                <div class="sport-card">
+                                    <div class="sport-icon">🤼</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Kabaddi</h3>
+                                    <p class="text-gray-600">Traditional sport</p>
+                                    <p class="text-sm text-gray-500 mt-2">Min. 60 points required</p>
+                                    <button class="btn btn-sports mt-4">Join Kabaddi</button>
+                                </div>
+                                
+                                <div class="sport-card">
+                                    <div class="sport-icon">⚽</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Football</h3>
+                                    <p class="text-gray-600">Join the tournament</p>
+                                    <p class="text-sm text-gray-500 mt-2">Min. 75 points required</p>
+                                    <button class="btn btn-sports mt-4">Join Football</button>
+                                </div>
+                            </div>
+                            
+                            <div class="card mt-6">
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Sports Leaderboard</h2>
+                                
+                                <div class="leaderboard-item">
+                                    <div class="flex items-center gap-3">
+                                        <span class="font-bold">1</span>
+                                        <div class="avatar">👦</div>
+                                        <div>
+                                            <div class="font-bold">SportsStar99</div>
+                                            <div class="text-sm text-gray-600">Elite Academy</div>
+                                        </div>
+                                    </div>
+                                    <span class="font-bold">320 pts</span>
+                                </div>
+                                
+                                <div class="leaderboard-item">
+                                    <div class="flex items-center gap-3">
+                                        <span class="font-bold">2</span>
+                                        <div class="avatar female">👧</div>
+                                        <div>
+                                            <div class="font-bold">JumpingJill</div>
+                                            <div class="text-sm text-gray-600">Green Valley</div>
+                                        </div>
+                                    </div>
+                                    <span class="font-bold">295 pts</span>
+                                </div>
+                                
+                                <div class="leaderboard-item">
+                                    <div class="flex items-center gap-3">
+                                        <span class="font-bold">3</span>
+                                        <div class="avatar">👦</div>
+                                        <div>
+                                            <div class="font-bold">FastRunner</div>
+                                            <div class="text-sm text-gray-600">Sunshine School</div>
+                                        </div>
+                                    </div>
+                                    <span class="font-bold">275 pts</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="team-tab" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Team Management <span class="captain-badge">Captain</span></h2>
+                            
+                            <div class="card">
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Create New Team</h3>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Select Sport</label>
+                                    <select class="form-input">
+                                        <option>Cricket</option>
+                                        <option>Volleyball</option>
+                                        <option>Kabaddi</option>
+                                        <option>Football</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Event Date & Time</label>
+                                    <input type="datetime-local" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" class="form-input" placeholder="Enter location">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Opponent Team</label>
+                                    <input type="text" class="form-input" placeholder="Enter opponent team name">
+                                </div>
+                                
+                                <button class="btn btn-sports">Schedule Event</button>
+                            </div>
+                            
+                            <div class="card">
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Select Players</h3>
+                                <p class="text-gray-600 mb-4">Choose players for your team (minimum points requirement: 80)</p>
+                                
+                                <div class="player-list">
+                                    <div class="player-item">
+                                        <div class="player-select">
+                                            <input type="checkbox" id="player1">
+                                            <label for="player1">Rahul Kumar</label>
+                                        </div>
+                                        <span class="points-badge">120 points</span>
+                                    </div>
+                                    
+                                    <div class="player-item">
+                                        <div class="player-select">
+                                            <input type="checkbox" id="player2">
+                                            <label for="player2">Priya Sharma</label>
+                                        </div>
+                                        <span class="points-badge">110 points</span>
+                                    </div>
+                                    
+                                    <div class="player-item">
+                                        <div class="player-select">
+                                            <input type="checkbox" id="player3">
+                                            <label for="player3">Arjun Singh</label>
+                                        </div>
+                                        <span class="points-badge">105 points</span>
+                                    </div>
+                                    
+                                    <div class="player-item">
+                                        <div class="player-select">
+                                            <input type="checkbox" id="player4">
+                                            <label for="player4">Sneha Patel</label>
+                                        </div>
+                                        <span class="points-badge">95 points</span>
+                                    </div>
+                                    
+                                    <div class="player-item">
+                                        <div class="player-select">
+                                            <input type="checkbox" id="player5">
+                                            <label for="player5">Vikram Malhotra</label>
+                                        </div>
+                                        <span class="points-badge">90 points</span>
+                                    </div>
+                                    
+                                    <div class="player-item">
+                                        <div class="player-select">
+                                            <input type="checkbox" id="player6">
+                                            <label for="player6">Anjali Mehta</label>
+                                        </div>
+                                        <span class="points-badge">85 points</span>
+                                    </div>
+                                    
+                                    <div class="player-item">
+                                        <div class="player-select">
+                                            <input type="checkbox" id="player7">
+                                            <label for="player7">Rohan Desai</label>
+                                        </div>
+                                        <span class="points-badge">82 points</span>
+                                    </div>
+                                    
+                                    <div class="player-item">
+                                        <div class="player-select">
+                                            <input type="checkbox" id="player8">
+                                            <label for="player8">Neha Gupta</label>
+                                        </div>
+                                        <span class="points-badge">78 points</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-sports w-full">Finalize Team Selection</button>
+                            </div>
+                        </div>
+                        
+                        <div id="zonal-tab" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Government Zonal Competitions</h2>
+                            
+                            <div class="government-zonal">
+                                <div class="zonal-title">Upcoming Zonal Events</div>
+                                <p class="text-gray-700">Top performers in school competitions will be selected to represent our school in government zonal events.</p>
+                                
+                                <div class="sport-event mt-4">
+                                    <div class="sport-title">Regional Cricket Zonals</div>
+                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> June 25-27, 9:00 AM - 5:00 PM</p>
+                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Regional Sports Complex</p>
+                                    <p class="text-sm text-gray-500 mt-2">Selection based on performance in school tournaments</p>
+                                </div>
+                                
+                                <div class="sport-event mt-4">
+                                    <div class="sport-title">State Volleyball Championship</div>
+                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> July 10-12, 10:00 AM - 4:00 PM</p>
+                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> State Sports Arena</p>
+                                    <p class="text-sm text-gray-500 mt-2">Top 2 teams from each zone will qualify</p>
+                                </div>
+                                
+                                <div class="sport-event mt-4">
+                                    <div class="sport-title">National Kabaddi Tournament</div>
+                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> August 5-10, 9:00 AM - 6:00 PM</p>
+                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> National Stadium</p>
+                                    <p class="text-sm text-gray-500 mt-2">State champions will represent their region</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card mt-6">
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Zonal Selection Criteria</h2>
+                                
+                                <div class="feature-highlight">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-800">Minimum 100 Points</h3>
+                                        <p class="text-gray-600">Players must have at least 100 points to be eligible</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-highlight">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-800">Daily Participation</h3>
+                                        <p class="text-gray-600">Must participate in daily challenges regularly</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-highlight">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-800">Team Performance</h3>
+                                        <p class="text-gray-600">Selection based on performance in team events</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="challenges" class="screen">
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Competition Challenges</h1>
+                        
+                        <div class="challenge-grid">
+                            <div class="challenge-card">
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Player vs Player</h2>
+                                <p class="text-gray-600 mb-4">Compete against other players in real-time quizzes</p>
+                                <div class="game-id-input mb-4">
+                                    <input type="text" placeholder="Enter Game ID" class="w-full p-3 border rounded-lg">
+                                </div>
+                                <button class="btn btn-accent w-full">Join PvP Game</button>
+                            </div>
+                            
+                            <div class="challenge-card">
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">School vs School</h2>
+                                <p class="text-gray-600 mb-4">2 boys + 2 girls from each school compete for glory</p>
+                                
+                                <div class="player-requirement flex justify-center gap-2 mb-4">
+                                    <div class="avatar">👦</div>
+                                    <div class="avatar">👦</div>
+                                    <div class="avatar female">👧</div>
+                                    <div class="avatar female">👧</div>
+                                </div>
+                                
+                                <div class="my-4">
+                                    <p class="text-gray-700">Required: 100 points to participate</p>
+                                    <p class="text-gray-700">Your points: <span class="font-bold">650</span></p>
+                                </div>
+                                
+                                <button class="btn btn-secondary w-full" id="schoolChallengeBtn">Create School Team</button>
+                            </div>
+                        </div>
+                        
+                        <div class="game-container mt-6">
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Live Challenge</h2>
+                            <p class="text-gray-700 mb-2">Current Question:</p>
+                            <p class="text-xl font-bold mb-4">What is the capital of France?</p>
+                            
+                            <div class="countdown">02:45</div>
+                            
+                            <div class="quiz-options">
+                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">London</div>
+                                <div class="quiz-option" onclick="checkAnswer(this, 'correct')">Paris</div>
+                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Berlin</div>
+                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Madrid</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="events" class="screen">
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Upcoming Events</h1>
+                        
+                        <div class="tab-container">
+                            <div class="tab active" onclick="switchEventsTab('sports-events')">Sports Events</div>
+                            <div class="tab" onclick="switchEventsTab('education-events')">Education Events</div>
+                            <div class="tab" onclick="switchEventsTab('government-events')">Government Programs</div>
+                        </div>
+                        
+                        <div id="sports-events" class="tab-content active">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Sports Events</h2>
+                            
+                            <div class="sport-event">
+                                <div class="sport-title">Cricket Match</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> Tomorrow, 3:00 PM - 6:00 PM</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> School Cricket Ground</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Green Valley vs. Sunshine School</p>
+                                <p><i class="fas fa-crown text-amber-500 mr-2"></i> Captain: Rahul Kumar</p>
+                                
+                                <div class="flex justify-between items-center mt-3">
+                                    <span class="text-sm text-gray-500">12 players participating</span>
+                                    <button class="btn btn-sports">View Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="sport-event">
+                                <div class="sport-title">Volleyball Tournament</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> Friday, 4:30 PM - 6:30 PM</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> School Volleyball Court</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Inter-class Competition</p>
+                                <p><i class="fas fa-crown text-amber-500 mr-2"></i> Captain: Priya Sharma</p>
+                                
+                                <div class="flex justify-between items-center mt-3">
+                                    <span class="text-sm text-gray-500">16 players participating</span>
+                                    <button class="btn btn-sports">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="education-events" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Education Events</h2>
+                            
+                            <div class="sport-event">
+                                <div class="education-title">Science Fair</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> June 20, 10:00 AM - 4:00 PM</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> School Science Lab</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> All science students participate</p>
+                                <p><i class="fas fa-trophy text-amber-500 mr-2"></i> Prizes for best projects</p>
+                            </div>
+                            
+                            <div class="sport-event">
+                                <div class="education-title">Math Olympiad</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> June 25, 2:00 PM - 5:00 PM</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> School Auditorium</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Grades 9-12 competition</p>
+                                <p><i class="fas fa-trophy text-amber-500 mr-2"></i> Scholarship opportunities</p>
+                            </div>
+                            
+                            <div class="sport-event">
+                                <div class="education-title">JEE Prep Workshop</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> Every Saturday, 9:00 AM - 12:00 PM</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Room 302</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> For aspiring engineering students</p>
+                                <p><i class="fas fa-chalkboard-teacher text-amber-500 mr-2"></i> Expert faculty guidance</p>
+                            </div>
+                        </div>
+                        
+                        <div id="government-events" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Government Programs</h2>
+                            
+                            <div class="sport-event">
+                                <div class="sport-title">National Tree Plantation Drive</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> June 15, 2023</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> National Botanical Gardens</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Join the Environment Minister</p>
+                                <p class="text-sm text-gray-500 mt-2">Top performers get to participate in this national event</p>
+                            </div>
+                            
+                            <div class="sport-event">
+                                <div class="sport-title">Clean Energy Workshop</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> July 22, 2023</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Innovation Center</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Learn from leading scientists</p>
+                                <p class="text-sm text-gray-500 mt-2">Hands-on workshop on solar panel installation</p>
+                            </div>
+                            
+                            <div class="sport-event">
+                                <div class="sport-title">Youth Climate Summit</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> August 10, 2023</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Convention Center</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Students present innovative solutions</p>
+                                <p class="text-sm text-gray-500 mt-2">Winning solutions get government funding</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar">
+                    <div class="profile-header">
+                        <div class="profile-avatar"><span id="avatar-initials">RK</span></div>
+                        <h2 class="text-xl font-bold text-gray-800"><span id="sidebar-username">Rahul Kumar</span></h2>
+                        <p class="text-gray-600" id="school-name-display">Green Valley Academy</p>
+                        <p class="font-bold text-green-600 mt-2"><span id="sidebar-points">650</span> points</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4">Your Stats</h2>
+                        <div class="flex justify-between mb-2">
+                            <span>Education Points</span>
+                            <span class="font-bold" id="sidebar-edu-points">420</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span>Sports Points</span>
+                            <span class="font-bold" id="sidebar-sports-points">230</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span>Challenge Wins</span>
+                            <span class="font-bold">18</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Daily Challenges</span>
+                            <span class="font-bold">6/7 this week</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4">Notifications <span class="notification-badge">3</span><span class="education-badge">2</span></h2>
+                        
+                        <div class="event-item">
+                            <div class="event-date">
+                                <div class="event-day">15</div>
+                                <div class="event-month">Jun</div>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Cricket Practice</h3>
+                                <p class="text-gray-600">3:00 PM - 5:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="event-item">
+                            <div class="event-date">
+                                <div class="event-day">16</div>
+                                <div class="event-month">Jun</div>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Math Quiz</h3>
+                                <p class="text-gray-600">Complete by tomorrow</p>
+                            </div>
+                        </div>
+                        
+                        <div class="event-item">
+                            <div class="event-date">
+                                <div class="event-day">18</div>
+                                <div class="event-month">Jun</div>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Zonal Meeting</h3>
+                                <p class="text-gray-600">Discuss government competitions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4">Daily Challenge</h2>
+                        <p class="text-gray-600 mb-4">Complete today's challenge to earn bonus points!</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-2">6 of 7 challenges completed this week</p>
+                        <button class="btn w-full mt-4">Start Today's Challenge</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4">School Rankings</h2>
+                        
+                        <div class="leaderboard-item">
+                            <div class="flex items-center gap-3">
+                                <span class="font-bold">1</span>
+                                <div>
+                                    <div class="font-bold">Elite Academy</div>
+                                    <div class="text-sm text-gray-600">1250 pts</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="leaderboard-item">
+                            <div class="flex items-center gap-3">
+                                <span class="font-bold">2</span>
+                                <div>
+                                    <div class="font-bold">Green Valley</div>
+                                    <div class="text-sm text-gray-600">980 pts</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="leaderboard-item">
+                            <div class="flex items-center gap-3">
+                                <span class="font-bold">3</span>
+                                <div>
+                                    <div class="font-bold">Sunshine School</div>
+                                    <div class="text-sm text-gray-600">920 pts</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="weekly-leaderboard">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4">Weekly Leaderboard 🗓️</h2>
+                        <div id="weekly-leaderboard-content"></div>
+                    </div>
+
+                    <div class="card" id="academic-leaderboard">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4">Academic Year Top 5 🏆</h2>
+                        <p class="text-sm text-gray-600 mb-4">Top performers from June to March get a fee discount!</p>
+                        <div id="academic-leaderboard-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // User data and states
+        let userData = {
+            fullName: '',
+            schoolName: '',
+            gender: '',
+            userClass: '',
+            points: 0,
+            educationPoints: 0,
+            sportsPoints: 0,
+            dailyChallenges: 0,
+            isCaptain: false
+        };
+
+        const weeklyLeaderboardData = [
+            { name: "Arjun S.", school: "Green Valley", points: 120, gender: "male" },
+            { name: "Priya M.", school: "Elite Academy", points: 115, gender: "female" },
+            { name: "Vikram R.", school: "Sunshine School", points: 105, gender: "male" },
+            { name: "Neha G.", school: "Green Valley", points: 98, gender: "female" },
+            { name: "Rohan D.", school: "Elite Academy", points: 92, gender: "male" },
+            { name: "Jasmine P.", school: "Sunshine School", points: 85, gender: "female" },
+        ];
+
+        const academicLeaderboardData = [
+            { name: "Anil Kumar", school: "Green Valley", points: 9800, prize: "50% Fee Discount" },
+            { name: "Sunita Reddy", school: "Elite Academy", points: 9550, prize: "40% Fee Discount" },
+            { name: "Rajesh Singh", school: "Sunshine School", points: 9210, prize: "30% Fee Discount" },
+            { name: "Meera Das", school: "Green Valley", points: 8970, prize: "20% Fee Discount" },
+            { name: "Vivek Sharma", school: "Elite Academy", points: 8720, prize: "10% Fee Discount" },
+        ];
+
+        // Mobile menu functionality
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.add('active');
+        });
+
+        document.getElementById('close-menu').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.remove('active');
+        });
+
+        function registerUser(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('user-name-input').value;
+            const schoolName = document.getElementById('school-name-input').value;
+            const gender = document.getElementById('gender-select').value;
+            const userClass = document.getElementById('class-select').value;
+            
+            // Set user data
+            userData = {
+                fullName,
+                schoolName,
+                gender,
+                userClass,
+                points: 100, // Starting points
+                educationPoints: 50,
+                sportsPoints: 50,
+                dailyChallenges: 0,
+                isCaptain: false
+            };
+            
+            // Hide login screen and show main app
+            document.getElementById('login-register').classList.remove('active');
+            document.getElementById('app-container').style.display = 'flex';
+            document.querySelector('.sidebar').classList.add('active');
+            document.querySelector('.user').classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('main-nav').classList.remove('active');
+            
+            // Update UI with user info
+            updateUserInfo();
+            updatePointsDisplay();
+            renderLeaderboards();
+            
+            showScreen('dashboard');
+        }
+
+        function updateUserInfo() {
+            const avatarChar = userData.gender === 'male' ? '👦' : '👧';
+            document.getElementById('user-avatar').innerHTML = avatarChar;
+            document.getElementById('user-avatar').classList.toggle('female', userData.gender === 'female');
+            document.getElementById('dashboard-username').textContent = userData.fullName;
+            document.getElementById('avatar-initials').innerHTML = avatarChar;
+            document.getElementById('sidebar-username').textContent = userData.fullName;
+            document.getElementById('school-name-display').textContent = userData.schoolName;
+        }
+
+        function showScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Show the selected screen
+            document.getElementById(screenId).classList.add('active');
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate the clicked nav item
+            const navItems = document.querySelectorAll('.nav-item');
+            for (let item of navItems) {
+                if (item.textContent.toLowerCase().includes(screenId.toLowerCase()) || 
+                    (screenId === 'dashboard' && item.textContent === 'Dashboard')) {
+                    item.classList.add('active');
+                    break;
+                }
+            }
+            
+            // Close mobile menu after selection
+            document.getElementById('main-nav').classList.remove('active');
+        }
+        
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show the selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update active tab
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Find and activate the clicked tab
+            const tabs = document.querySelectorAll('.tab');
+            for (let tab of tabs) {
+                if (tab.textContent.toLowerCase().includes(tabId.toLowerCase().split('-')[0])) {
+                    tab.classList.add('active');
+                    break;
+                }
+            }
+        }
+        
+        function switchSportsTab(tabId) {
+            // Hide all sports tab contents
+            document.querySelectorAll('#sports .tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show the selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update active sports tab
+            document.querySelectorAll('#sports .tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Find and activate the clicked tab
+            const tabs = document.querySelectorAll('#sports .tab');
+            for (let tab of tabs) {
+                if (tab.textContent.toLowerCase().includes(tabId.toLowerCase().split('-')[0])) {
+                    tab.classList.add('active');
+                    break;
+                }
+            }
+        }
+        
+        function switchEventsTab(tabId) {
+            // Hide all events tab contents
+            document.querySelectorAll('#events .tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show the selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update active events tab
+            document.querySelectorAll('#events .tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Find and activate the clicked tab
+            const tabs = document.querySelectorAll('#events .tab');
+            for (let tab of tabs) {
+                if (tab.textContent.toLowerCase().includes(tabId.toLowerCase().split('-')[0])) {
+                    tab.classList.add('active');
+                    break;
+                }
+            }
+        }
+        
+        function checkAnswer(element, correctness) {
+            // Reset all options
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            // Mark the selected option
+            element.classList.add(correctness);
+            
+            // If correct, add points after a delay
+            if (correctness === 'correct') {
+                setTimeout(() => {
+                    userData.points += 10;
+                    updatePointsDisplay();
+                    alert('Correct! +10 points');
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    alert('Incorrect! The right answer is marked.');
+                    // Find the correct answer and mark it
+                    const correctOption = document.querySelector('.quiz-option[onclick*="correct"]');
+                    if (correctOption) {
+                        correctOption.classList.add('correct');
+                    }
+                }, 1000);
+            }
+        }
+        
+        function buySolution() {
+            if (userData.points >= 5) {
+                if (confirm("This will cost 5 points. Continue?")) {
+                    userData.points -= 5;
+                    updatePointsDisplay();
+                    alert("Solution unlocked! 5 points deducted.");
+                }
+            } else {
+                alert("You don't have enough points to unlock this solution.");
+            }
+        }
+        
+        function updatePointsDisplay() {
+            document.getElementById('sidebar-points').textContent = userData.points;
+            document.getElementById('sidebar-edu-points').textContent = userData.educationPoints;
+            document.getElementById('sidebar-sports-points').textContent = userData.sportsPoints;
+            
+            document.querySelector('#dashboard .points-display').textContent = `${userData.points}/800 points`;
+            document.querySelector('#dashboard .card .progress-fill').style.width = `${(userData.points / 800) * 100}%`;
+            document.getElementById('education-points-display').textContent = userData.educationPoints;
+            document.getElementById('sports-points-display').textContent = userData.sportsPoints;
+            document.querySelector('#dashboard .card .grid .progress-bar:nth-child(1) .progress-fill').style.width = `${(userData.educationPoints / 500) * 100}%`;
+            document.querySelector('#dashboard .card .grid .progress-bar:nth-child(2) .progress-fill').style.width = `${(userData.sportsPoints / 300) * 100}%`;
+            document.querySelector('#challenges .challenge-card .my-4 .font-bold').textContent = userData.points;
+        }
+
+        function renderLeaderboards() {
+            const weeklyContent = document.getElementById('weekly-leaderboard-content');
+            weeklyContent.innerHTML = '';
+            weeklyLeaderboardData.forEach((player, index) => {
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="font-bold">${index + 1}</span>
+                        <div class="avatar ${player.gender === 'female' ? 'female' : ''}">${player.gender === 'male' ? '👦' : '👧'}</div>
+                        <div>
+                            <div class="font-bold">${player.name}</div>
+                            <div class="text-sm text-gray-600">${player.school}</div>
+                        </div>
+                    </div>
+                    <span class="font-bold">${player.points} pts</span>
+                `;
+                weeklyContent.appendChild(item);
+            });
+
+            const academicContent = document.getElementById('academic-leaderboard-content');
+            academicContent.innerHTML = '';
+            academicLeaderboardData.forEach((student, index) => {
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="font-bold">${index + 1}</span>
+                        <div>
+                            <div class="font-bold">${student.name}</div>
+                            <div class="text-sm text-gray-600">${student.school}</div>
+                        </div>
+                    </div>
+                    <span class="font-bold text-amber-600">${student.prize}</span>
+                `;
+                academicContent.appendChild(item);
+            });
+        }
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initially, only show the login screen
+            document.getElementById('login-register').classList.add('active');
+        });
+    </script>
+</body>
+</html>
