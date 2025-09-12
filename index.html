@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco-Adventure: Education & Sports Platform</title>
+    <title>Eco-Adventure: Education & Environment Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,8 +12,8 @@
             --primary: #10b981;
             --secondary: #3b82f6;
             --accent: #f59e0b;
-            --sports: #ef4444;
             --education: #8b5cf6;
+            --environment: #059669;
             --dark: #1f2937;
             --light: #f0fdf4;
         }
@@ -200,12 +200,12 @@
             box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
         }
 
-        .btn-sports {
-            background: linear-gradient(135deg, var(--sports) 0%, #dc2626 100%);
-        }
-
         .btn-education {
             background: linear-gradient(135deg, var(--education) 0%, #7c3aed 100%);
+        }
+
+        .btn-environment {
+            background: linear-gradient(135deg, var(--environment) 0%, #047857 100%);
         }
 
         .btn-secondary {
@@ -217,14 +217,14 @@
         }
 
         /* Grid Systems */
-        .subject-grid, .sports-grid, .challenge-grid, .dashboard-grid {
+        .subject-grid, .environment-grid, .challenge-grid, .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
 
-        .subject-card, .sport-card {
+        .subject-card, .environment-card {
             background: white;
             border-radius: 16px;
             padding: 1.5rem;
@@ -234,12 +234,12 @@
             cursor: pointer;
         }
 
-        .subject-card:hover, .sport-card:hover {
+        .subject-card:hover, .environment-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .subject-icon, .sport-icon {
+        .subject-icon, .environment-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
@@ -467,7 +467,7 @@
 
         /* Badges and Notifications */
         .notification-badge, .education-badge {
-            background: var(--sports);
+            background: var(--environment);
             color: white;
             width: 22px;
             height: 22px;
@@ -529,7 +529,7 @@
                 font-size: 1.6rem;
             }
             
-            .subject-grid, .sports-grid {
+            .subject-grid, .environment-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -585,7 +585,7 @@
                 flex-shrink: 0;
             }
             
-            .subject-grid, .sports-grid, .challenge-grid {
+            .subject-grid, .environment-grid, .challenge-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -603,7 +603,7 @@
                 min-height: 90vh;
             }
             
-            .subject-grid, .sports-grid {
+            .subject-grid, .environment-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
             
@@ -613,7 +613,7 @@
         }
 
         @media (min-width: 1280px) {
-            .subject-grid, .sports-grid {
+            .subject-grid, .environment-grid {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
@@ -637,7 +637,7 @@
                 </button>
                 <div class="nav-item active" onclick="showScreen('dashboard')">Dashboard</div>
                 <div class="nav-item" onclick="showScreen('education')">Education</div>
-                <div class="nav-item" onclick="showScreen('sports')">Sports</div>
+                <div class="nav-item" onclick="showScreen('environment')">Environment</div>
                 <div class="nav-item" onclick="showScreen('challenges')">Challenges</div>
                 <div class="nav-item" onclick="showScreen('events')">Events</div>
             </div>
@@ -681,7 +681,7 @@
                             <div class="trophy-icon">🏆</div>
                             <h2 class="text-xl md:text-2xl font-bold text-amber-800 mb-2">School of the Year 2023</h2>
                             <p class="text-amber-700">Green Valley Academy</p>
-                            <p class="text-sm text-amber-600">Top performer in education and sports</p>
+                            <p class="text-sm text-amber-600">Top performer in education and environmental studies</p>
                         </div>
                         
                         <div class="grid grid-cols-2 gap-4 mb-6">
@@ -691,8 +691,8 @@
                                 <p class="text-2xl font-bold">#2</p>
                             </div>
                             <div class="card text-center">
-                                <div class="text-3xl text-red-600 mb-2">⚽</div>
-                                <h3 class="font-bold text-gray-800">Sports Rank</h3>
+                                <div class="text-3xl text-green-600 mb-2">🌱</div>
+                                <h3 class="font-bold text-gray-800">Environment Rank</h3>
                                 <p class="text-2xl font-bold">#3</p>
                             </div>
                         </div>
@@ -720,8 +720,8 @@
                                     </div>
                                     <div>
                                         <div class="flex justify-between mb-1">
-                                            <span>Sports Points</span>
-                                            <span class="font-bold" id="sports-points-display">230</span>
+                                            <span>Environment Points</span>
+                                            <span class="font-bold" id="environment-points-display">230</span>
                                         </div>
                                         <div class="progress-bar">
                                             <div class="progress-fill" style="width: 76%"></div>
@@ -930,63 +930,59 @@
                         </div>
                     </div>
                     
-                    <!-- Sports Content -->
-                    <div id="sports" class="screen">
-                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Sports Management</h1>
+                    <!-- Environment Content -->
+                    <div id="environment" class="screen">
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Environmental Learning</h1>
                         
                         <div class="tab-container">
-                            <div class="tab active" onclick="switchSportsTab('sports-tab')">Sports Activities</div>
-                            <div class="tab" onclick="switchSportsTab('team-tab')">Team Management</div>
-                            <div class="tab" onclick="switchSportsTab('zonal-tab')">Zonal Competitions</div>
+                            <div class="tab active" onclick="switchEnvironmentTab('lessons-tab')">Eco-Lessons</div>
+                            <div class="tab" onclick="switchEnvironmentTab('projects-tab')">Eco-Projects</div>
+                            <div class="tab" onclick="switchEnvironmentTab('community-tab')">Community</div>
                         </div>
                         
-                        <div id="sports-tab" class="tab-content active">
-                            <h2 class="text-xl font-bold text-gray-800 mb-4">Sports Activities</h2>
+                        <div id="lessons-tab" class="tab-content active">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Environmental Lessons</h2>
                             
-                            <div class="sports-grid">
-                                <div class="sport-card">
-                                    <div class="sport-icon">🏏</div>
-                                    <h3 class="font-bold text-gray-800 mb-2">Cricket</h3>
-                                    <p class="text-gray-600">Join the tournament</p>
-                                    <p class="text-sm text-gray-500 mt-2">Min. 80 points required</p>
-                                    <button class="btn btn-sports mt-4">Join Cricket</button>
+                            <div class="environment-grid">
+                                <div class="environment-card">
+                                    <div class="environment-icon">🌱</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Sustainable Agriculture</h3>
+                                    <p class="text-gray-600">Learn about eco-friendly farming</p>
+                                    <button class="btn btn-environment mt-4">Start Lesson</button>
                                 </div>
                                 
-                                <div class="sport-card">
-                                    <div class="sport-icon">🏐</div>
-                                    <h3 class="font-bold text-gray-800 mb-2">Volleyball</h3>
-                                    <p class="text-gray-600">Team competition</p>
-                                    <p class="text-sm text-gray-500 mt-2">Min. 70 points required</p>
-                                    <button class="btn btn-sports mt-4">Join Volleyball</button>
+                                <div class="environment-card">
+                                    <div class="environment-icon">💧</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Water Conservation</h3>
+                                    <p class="text-gray-600">Preserving our water resources</p>
+                                    <button class="btn btn-environment mt-4">Start Lesson</button>
                                 </div>
                                 
-                                <div class="sport-card">
-                                    <div class="sport-icon">🤼</div>
-                                    <h3 class="font-bold text-gray-800 mb-2">Kabaddi</h3>
-                                    <p class="text-gray-600">Traditional sport</p>
-                                    <p class="text-sm text-gray-500 mt-2">Min. 60 points required</p>
-                                    <button class="btn btn-sports mt-4">Join Kabaddi</button>
+                                <div class="environment-card">
+                                    <div class="environment-icon">🌞</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Renewable Energy</h3>
+                                    <p class="text-gray-600">Solar, wind, and other clean energy</p>
+                                    <button class="btn btn-environment mt-4">Start Lesson</button>
                                 </div>
                                 
-                                <div class="sport-card">
-                                    <div class="sport-icon">⚽</div>
-                                    <h3 class="font-bold text-gray-800 mb-2">Football</h3>
-                                    <p class="text-gray-600">Join the tournament</p>
-                                    <p class="text-sm text-gray-500 mt-2">Min. 75 points required</p>
-                                    <button class="btn btn-sports mt-4">Join Football</button>
+                                <div class="environment-card">
+                                    <div class="environment-icon">🦜</div>
+                                    <h3 class="font-bold text-gray-800 mb-2">Biodiversity</h3>
+                                    <p class="text-gray-600">Protecting species and ecosystems</p>
+                                    <button class="btn btn-environment mt-4">Start Lesson</button>
                                 </div>
                             </div>
                             
                             <div class="card mt-6">
-                                <h2 class="text-xl font-bold text-gray-800 mb-4">Sports Leaderboard</h2>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Environment Leaderboard</h2>
                                 
                                 <div class="leaderboard-item">
                                     <div class="flex items-center gap-3">
                                         <span class="font-bold">1</span>
                                         <div class="avatar">👦</div>
                                         <div>
-                                            <div class="font-bold">SportsStar99</div>
-                                            <div class="text-sm text-gray-600">Elite Academy</div>
+                                            <div class="font-bold">EcoWarrior</div>
+                                            <div class="text-sm text-gray-600">Green Valley</div>
                                         </div>
                                     </div>
                                     <span class="font-bold">320 pts</span>
@@ -997,8 +993,8 @@
                                         <span class="font-bold">2</span>
                                         <div class="avatar female">👧</div>
                                         <div>
-                                            <div class="font-bold">JumpingJill</div>
-                                            <div class="text-sm text-gray-600">Green Valley</div>
+                                            <div class="font-bold">NatureLover</div>
+                                            <div class="text-sm text-gray-600">Elite Academy</div>
                                         </div>
                                     </div>
                                     <span class="font-bold">295 pts</span>
@@ -1009,7 +1005,7 @@
                                         <span class="font-bold">3</span>
                                         <div class="avatar">👦</div>
                                         <div>
-                                            <div class="font-bold">FastRunner</div>
+                                            <div class="font-bold">GreenThumb</div>
                                             <div class="text-sm text-gray-600">Sunshine School</div>
                                         </div>
                                     </div>
@@ -1018,25 +1014,25 @@
                             </div>
                         </div>
                         
-                        <!-- Other sports tabs would go here -->
-                        <div id="team-tab" class="tab-content">
-                            <h2 class="text-xl font-bold text-gray-800 mb-4">Team Management <span class="captain-badge">Captain</span></h2>
+                        <!-- Other environment tabs would go here -->
+                        <div id="projects-tab" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Eco-Projects <span class="captain-badge">Leader</span></h2>
                             
                             <div class="card">
-                                <h3 class="text-lg font-bold text-gray-800 mb-4">Create New Team</h3>
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Start New Eco-Project</h3>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Select Sport</label>
+                                    <label class="form-label">Project Type</label>
                                     <select class="form-input">
-                                        <option>Cricket</option>
-                                        <option>Volleyball</option>
-                                        <option>Kabaddi</option>
-                                        <option>Football</option>
+                                        <option>Tree Planting</option>
+                                        <option>Recycling Drive</option>
+                                        <option>Clean Energy</option>
+                                        <option>Water Conservation</option>
                                     </select>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Event Date & Time</label>
+                                    <label class="form-label">Project Date & Time</label>
                                     <input type="datetime-local" class="form-input">
                                 </div>
                                 
@@ -1046,126 +1042,102 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Opponent Team</label>
-                                    <input type="text" class="form-input" placeholder="Enter opponent team name">
+                                    <label class="form-label">Project Description</label>
+                                    <textarea class="form-input" placeholder="Describe your eco-project"></textarea>
                                 </div>
                                 
-                                <button class="btn btn-sports">Schedule Event</button>
+                                <button class="btn btn-environment">Create Project</button>
                             </div>
                             
                             <div class="card">
-                                <h3 class="text-lg font-bold text-gray-800 mb-4">Select Players</h3>
-                                <p class="text-gray-600 mb-4">Choose players for your team (minimum points requirement: 80)</p>
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Invite Participants</h3>
+                                <p class="text-gray-600 mb-4">Select participants for your eco-project (minimum environment points: 80)</p>
                                 
                                 <div class="player-list">
                                     <div class="player-item">
                                         <div class="player-select">
-                                            <input type="checkbox" id="player1">
-                                            <label for="player1">Rahul Kumar</label>
+                                            <input type="checkbox" id="participant1">
+                                            <label for="participant1">Rahul Kumar</label>
                                         </div>
                                         <span class="points-badge">120 points</span>
                                     </div>
                                     
                                     <div class="player-item">
                                         <div class="player-select">
-                                            <input type="checkbox" id="player2">
-                                            <label for="player2">Priya Sharma</label>
+                                            <input type="checkbox" id="participant2">
+                                            <label for="participant2">Priya Sharma</label>
                                         </div>
                                         <span class="points-badge">110 points</span>
                                     </div>
                                     
                                     <div class="player-item">
                                         <div class="player-select">
-                                            <input type="checkbox" id="player3">
-                                            <label for="player3">Arjun Singh</label>
+                                            <input type="checkbox" id="participant3">
+                                            <label for="participant3">Arjun Singh</label>
                                         </div>
                                         <span class="points-badge">105 points</span>
                                     </div>
                                     
                                     <div class="player-item">
                                         <div class="player-select">
-                                            <input type="checkbox" id="player4">
-                                            <label for="player4">Sneha Patel</label>
+                                            <input type="checkbox" id="participant4">
+                                            <label for="participant4">Sneha Patel</label>
                                         </div>
                                         <span class="points-badge">95 points</span>
                                     </div>
                                     
                                     <div class="player-item">
                                         <div class="player-select">
-                                            <input type="checkbox" id="player5">
-                                            <label for="player5">Vikram Malhotra</label>
+                                            <input type="checkbox" id="participant5">
+                                            <label for="participant5">Vikram Malhotra</label>
                                         </div>
                                         <span class="points-badge">90 points</span>
                                     </div>
-                                    
-                                    <div class="player-item">
-                                        <div class="player-select">
-                                            <input type="checkbox" id="player6">
-                                            <label for="player6">Anjali Mehta</label>
-                                        </div>
-                                        <span class="points-badge">85 points</span>
-                                    </div>
-                                    
-                                    <div class="player-item">
-                                        <div class="player-select">
-                                            <input type="checkbox" id="player7">
-                                            <label for="player7">Rohan Desai</label>
-                                        </div>
-                                        <span class="points-badge">82 points</span>
-                                    </div>
-                                    
-                                    <div class="player-item">
-                                        <div class="player-select">
-                                            <input type="checkbox" id="player8">
-                                            <label for="player8">Neha Gupta</label>
-                                        </div>
-                                        <span class="points-badge">78 points</span>
-                                    </div>
                                 </div>
                                 
-                                <button class="btn btn-sports w-full">Finalize Team Selection</button>
+                                <button class="btn btn-environment w-full">Finalize Team Selection</button>
                             </div>
                         </div>
                         
-                        <div id="zonal-tab" class="tab-content">
-                            <h2 class="text-xl font-bold text-gray-800 mb-4">Government Zonal Competitions</h2>
+                        <div id="community-tab" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Community Environmental Programs</h2>
                             
                             <div class="government-zonal">
-                                <div class="zonal-title">Upcoming Zonal Events</div>
-                                <p class="text-gray-700">Top performers in school competitions will be selected to represent our school in government zonal events.</p>
+                                <div class="zonal-title">Upcoming Community Events</div>
+                                <p class="text-gray-700">Top performers in environmental activities will be selected to represent our school in community environmental programs.</p>
                                 
                                 <div class="sport-event mt-4">
-                                    <div class="sport-title">Regional Cricket Zonals</div>
-                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> June 25-27, 9:00 AM - 5:00 PM</p>
-                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Regional Sports Complex</p>
-                                    <p class="text-sm text-gray-500 mt-2">Selection based on performance in school tournaments</p>
+                                    <div class="sport-title">Community Tree Planting Day</div>
+                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> June 25, 9:00 AM - 12:00 PM</p>
+                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> City Park</p>
+                                    <p class="text-sm text-gray-500 mt-2">Help plant 500 trees in our community park</p>
                                 </div>
                                 
                                 <div class="sport-event mt-4">
-                                    <div class="sport-title">State Volleyball Championship</div>
-                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> July 10-12, 10:00 AM - 4:00 PM</p>
-                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> State Sports Arena</p>
-                                    <p class="text-sm text-gray-500 mt-2">Top 2 teams from each zone will qualify</p>
+                                    <div class="sport-title">Beach Cleanup Initiative</div>
+                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> July 10, 10:00 AM - 2:00 PM</p>
+                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Ocean Beach</p>
+                                    <p class="text-sm text-gray-500 mt-2">Help clean up our local beach and learn about marine conservation</p>
                                 </div>
                                 
                                 <div class="sport-event mt-4">
-                                    <div class="sport-title">National Kabaddi Tournament</div>
-                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> August 5-10, 9:00 AM - 6:00 PM</p>
-                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> National Stadium</p>
-                                    <p class="text-sm text-gray-500 mt-2">State champions will represent their region</p>
+                                    <div class="sport-title">Recycling Awareness Campaign</div>
+                                    <p><i class="fas fa-calendar text-gray-500 mr-2"></i> August 5, 11:00 AM - 3:00 PM</p>
+                                    <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Community Center</p>
+                                    <p class="text-sm text-gray-500 mt-2">Educate community members about proper recycling practices</p>
                                 </div>
                             </div>
                             
                             <div class="card mt-6">
-                                <h2 class="text-xl font-bold text-gray-800 mb-4">Zonal Selection Criteria</h2>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Community Program Criteria</h2>
                                 
                                 <div class="feature-highlight">
                                     <div class="feature-icon">
                                         <i class="fas fa-trophy"></i>
                                     </div>
                                     <div>
-                                        <h3 class="font-bold text-gray-800">Minimum 100 Points</h3>
-                                        <p class="text-gray-600">Players must have at least 100 points to be eligible</p>
+                                        <h3 class="font-bold text-gray-800">Minimum 100 Environment Points</h3>
+                                        <p class="text-gray-600">Students must have at least 100 environment points to be eligible</p>
                                     </div>
                                 </div>
                                 
@@ -1174,8 +1146,8 @@
                                         <i class="fas fa-calendar-check"></i>
                                     </div>
                                     <div>
-                                        <h3 class="font-bold text-gray-800">Daily Participation</h3>
-                                        <p class="text-gray-600">Must participate in daily challenges regularly</p>
+                                        <h3 class="font-bold text-gray-800">Regular Participation</h3>
+                                        <p class="text-gray-600">Must participate in environmental activities regularly</p>
                                     </div>
                                 </div>
                                 
@@ -1184,8 +1156,8 @@
                                         <i class="fas fa-users"></i>
                                     </div>
                                     <div>
-                                        <h3 class="font-bold text-gray-800">Team Performance</h3>
-                                        <p class="text-gray-600">Selection based on performance in team events</p>
+                                        <h3 class="font-bold text-gray-800">Teamwork Skills</h3>
+                                        <p class="text-gray-600">Demonstrated ability to work well in teams</p>
                                     </div>
                                 </div>
                             </div>
@@ -1199,7 +1171,7 @@
                         <div class="challenge-grid">
                             <div class="challenge-card">
                                 <h2 class="text-xl font-bold text-gray-800 mb-4">Player vs Player</h2>
-                                <p class="text-gray-600 mb-4">Compete against other players in real-time quizzes</p>
+                                <p class="text-gray-600 mb-4">Compete against other players in real-time environmental quizzes</p>
                                 <div class="game-id-input mb-4">
                                     <input type="text" placeholder="Enter Game ID" class="w-full p-3 border rounded-lg">
                                 </div>
@@ -1208,7 +1180,7 @@
                             
                             <div class="challenge-card">
                                 <h2 class="text-xl font-bold text-gray-800 mb-4">School vs School</h2>
-                                <p class="text-gray-600 mb-4">2 boys + 2 girls from each school compete for glory</p>
+                                <p class="text-gray-600 mb-4">2 boys + 2 girls from each school compete in environmental challenges</p>
                                 
                                 <div class="player-requirement flex justify-center gap-2 mb-4">
                                     <div class="avatar">👦</div>
@@ -1227,17 +1199,17 @@
                         </div>
                         
                         <div class="game-container mt-6">
-                            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Live Challenge</h2>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Live Environmental Challenge</h2>
                             <p class="text-gray-700 mb-2">Current Question:</p>
-                            <p class="text-xl font-bold mb-4">What is the capital of France?</p>
+                            <p class="text-xl font-bold mb-4">Which of these is NOT a renewable energy source?</p>
                             
                             <div class="countdown">02:45</div>
                             
                             <div class="quiz-options">
-                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">London</div>
-                                <div class="quiz-option" onclick="checkAnswer(this, 'correct')">Paris</div>
-                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Berlin</div>
-                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Madrid</div>
+                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Solar Power</div>
+                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Wind Power</div>
+                                <div class="quiz-option" onclick="checkAnswer(this, 'correct')">Natural Gas</div>
+                                <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Hydroelectric Power</div>
                             </div>
                         </div>
                     </div>
@@ -1247,37 +1219,37 @@
                         <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Upcoming Events</h1>
                         
                         <div class="tab-container">
-                            <div class="tab active" onclick="switchEventsTab('sports-events')">Sports Events</div>
+                            <div class="tab active" onclick="switchEventsTab('environment-events')">Environment Events</div>
                             <div class="tab" onclick="switchEventsTab('education-events')">Education Events</div>
-                            <div class="tab" onclick="switchEventsTab('government-events')">Government Programs</div>
+                            <div class="tab" onclick="switchEventsTab('community-events')">Community Programs</div>
                         </div>
                         
-                        <div id="sports-events" class="tab-content active">
-                            <h2 class="text-xl font-bold text-gray-800 mb-4">Sports Events</h2>
+                        <div id="environment-events" class="tab-content active">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Environmental Events</h2>
                             
                             <div class="sport-event">
-                                <div class="sport-title">Cricket Match</div>
-                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> Tomorrow, 3:00 PM - 6:00 PM</p>
-                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> School Cricket Ground</p>
-                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Green Valley vs. Sunshine School</p>
-                                <p><i class="fas fa-crown text-amber-500 mr-2"></i> Captain: Rahul Kumar</p>
+                                <div class="sport-title">Tree Planting Day</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> Tomorrow, 10:00 AM - 12:00 PM</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> School Garden</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> All environmental club members</p>
+                                <p><i class="fas fa-crown text-amber-500 mr-2"></i> Leader: Priya Sharma</p>
                                 
                                 <div class="flex justify-between items-center mt-3">
-                                    <span class="text-sm text-gray-500">12 players participating</span>
-                                    <button class="btn btn-sports">View Details</button>
+                                    <span class="text-sm text-gray-500">25 students participating</span>
+                                    <button class="btn btn-environment">View Details</button>
                                 </div>
                             </div>
                             
                             <div class="sport-event">
-                                <div class="sport-title">Volleyball Tournament</div>
-                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> Friday, 4:30 PM - 6:30 PM</p>
-                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> School Volleyball Court</p>
-                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Inter-class Competition</p>
-                                <p><i class="fas fa-crown text-amber-500 mr-2"></i> Captain: Priya Sharma</p>
+                                <div class="sport-title">Recycling Workshop</div>
+                                <p><i class="fas fa-calendar text-gray-500 mr-2"></i> Friday, 3:30 PM - 5:00 PM</p>
+                                <p><i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Science Lab</p>
+                                <p><i class="fas fa-users text-gray-500 mr-2"></i> Learn about proper recycling techniques</p>
+                                <p><i class="fas fa-crown text-amber-500 mr-2"></i> Instructor: Mr. Gupta</p>
                                 
                                 <div class="flex justify-between items-center mt-3">
-                                    <span class="text-sm text-gray-500">16 players participating</span>
-                                    <button class="btn btn-sports">View Details</button>
+                                    <span class="text-sm text-gray-500">18 students participating</span>
+                                    <button class="btn btn-environment">View Details</button>
                                 </div>
                             </div>
                         </div>
@@ -1311,8 +1283,8 @@
                             </div>
                         </div>
                         
-                        <div id="government-events" class="tab-content">
-                            <h2 class="text-xl font-bold text-gray-800 mb-4">Government Programs</h2>
+                        <div id="community-events" class="tab-content">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Community Environmental Programs</h2>
                             
                             <div class="sport-event">
                                 <div class="sport-title">National Tree Plantation Drive</div>
@@ -1356,8 +1328,8 @@
                             <span class="font-bold" id="sidebar-edu-points">420</span>
                         </div>
                         <div class="flex justify-between mb-2">
-                            <span>Sports Points</span>
-                            <span class="font-bold" id="sidebar-sports-points">230</span>
+                            <span>Environment Points</span>
+                            <span class="font-bold" id="sidebar-environment-points">230</span>
                         </div>
                         <div class="flex justify-between mb-2">
                             <span>Challenge Wins</span>
@@ -1378,8 +1350,8 @@
                                 <div class="event-month">Jun</div>
                             </div>
                             <div>
-                                <h3 class="font-bold text-gray-800">Cricket Practice</h3>
-                                <p class="text-gray-600">3:00 PM - 5:00 PM</p>
+                                <h3 class="font-bold text-gray-800">Tree Planting</h3>
+                                <p class="text-gray-600">10:00 AM - 12:00 PM</p>
                             </div>
                         </div>
                         
@@ -1389,7 +1361,7 @@
                                 <div class="event-month">Jun</div>
                             </div>
                             <div>
-                                <h3 class="font-bold text-gray-800">Math Quiz</h3>
+                                <h3 class="font-bold text-gray-800">Environmental Quiz</h3>
                                 <p class="text-gray-600">Complete by tomorrow</p>
                             </div>
                         </div>
@@ -1400,8 +1372,8 @@
                                 <div class="event-month">Jun</div>
                             </div>
                             <div>
-                                <h3 class="font-bold text-gray-800">Zonal Meeting</h3>
-                                <p class="text-gray-600">Discuss government competitions</p>
+                                <h3 class="font-bold text-gray-800">Community Meeting</h3>
+                                <p class="text-gray-600">Discuss environmental programs</p>
                             </div>
                         </div>
                     </div>
@@ -1474,9 +1446,9 @@
             userClass: '',
             points: 0,
             educationPoints: 0,
-            sportsPoints: 0,
+            environmentPoints: 0,
             dailyChallenges: 0,
-            isCaptain: false
+            isLeader: false
         };
 
         const weeklyLeaderboardData = [
@@ -1520,9 +1492,9 @@
                 userClass,
                 points: 100, // Starting points
                 educationPoints: 50,
-                sportsPoints: 50,
+                environmentPoints: 50,
                 dailyChallenges: 0,
-                isCaptain: false
+                isLeader: false
             };
             
             // Hide login screen and show main app
@@ -1604,22 +1576,22 @@
             }
         }
         
-        function switchSportsTab(tabId) {
-            // Hide all sports tab contents
-            document.querySelectorAll('#sports .tab-content').forEach(tab => {
+        function switchEnvironmentTab(tabId) {
+            // Hide all environment tab contents
+            document.querySelectorAll('#environment .tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
             
             // Show the selected tab content
             document.getElementById(tabId).classList.add('active');
             
-            // Update active sports tab
-            document.querySelectorAll('#sports .tab').forEach(tab => {
+            // Update active environment tab
+            document.querySelectorAll('#environment .tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
             // Find and activate the clicked tab
-            const tabs = document.querySelectorAll('#sports .tab');
+            const tabs = document.querySelectorAll('#environment .tab');
             for (let tab of tabs) {
                 if (tab.textContent.toLowerCase().includes(tabId.toLowerCase().split('-')[0])) {
                     tab.classList.add('active');
@@ -1665,6 +1637,7 @@
             if (correctness === 'correct') {
                 setTimeout(() => {
                     userData.points += 10;
+                    userData.educationPoints += 10;
                     updatePointsDisplay();
                     alert('Correct! +10 points');
                 }, 1000);
@@ -1695,14 +1668,14 @@
         function updatePointsDisplay() {
             document.getElementById('sidebar-points').textContent = userData.points;
             document.getElementById('sidebar-edu-points').textContent = userData.educationPoints;
-            document.getElementById('sidebar-sports-points').textContent = userData.sportsPoints;
+            document.getElementById('sidebar-environment-points').textContent = userData.environmentPoints;
             
             document.querySelector('#dashboard .points-display').textContent = `${userData.points}/800 points`;
             document.querySelector('#dashboard .card .progress-fill').style.width = `${(userData.points / 800) * 100}%`;
             document.getElementById('education-points-display').textContent = userData.educationPoints;
-            document.getElementById('sports-points-display').textContent = userData.sportsPoints;
+            document.getElementById('environment-points-display').textContent = userData.environmentPoints;
             document.querySelector('#dashboard .card .grid .progress-bar:nth-child(1) .progress-fill').style.width = `${(userData.educationPoints / 500) * 100}%`;
-            document.querySelector('#dashboard .card .grid .progress-bar:nth-child(2) .progress-fill').style.width = `${(userData.sportsPoints / 300) * 100}%`;
+            document.querySelector('#dashboard .card .grid .progress-bar:nth-child(2) .progress-fill').style.width = `${(userData.environmentPoints / 300) * 100}%`;
             document.querySelector('#challenges .challenge-card .my-4 .font-bold').textContent = userData.points;
         }
 
